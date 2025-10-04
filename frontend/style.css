@@ -1,0 +1,110 @@
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    color: #e0e0e0;
+    background-color: #000;
+    overflow: hidden;
+}
+
+.screen {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.screen.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+#simulation-screen {
+    background: url('images/space-scene-background.jpg') no-repeat center center;
+    background-size: cover;
+    flex-direction: column;
+}
+
+#asteroid {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: radial-gradient(circle, #ffcc00, #ff6600, #330000);
+    border-radius: 50%;
+    box-shadow: 0 0 15px 5px #ff9900, inset 0 0 5px #ffffff;
+    display: none;
+    z-index: 5; 
+}
+#asteroid.animate {
+    display: block;
+    animation: fly-in 1.5s ease-in forwards;
+}
+#impact-flash {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background: white;
+    border-radius: 50%;
+    transform: scale(0);
+    opacity: 0;
+    z-index: 6; 
+}
+#impact-flash.animate {
+    animation: impact-effect 0.5s ease-out forwards;
+}
+
+@keyframes fly-in {
+    0% { transform: translate(-100vw, -50vh) scale(0.2); opacity: 1; }
+    70% { transform: translate(0, -15vh) scale(1); opacity: 1; }
+    100% { transform: translate(0, -15vh) scale(1); opacity: 0; }
+}
+@keyframes impact-effect {
+    0% { transform: scale(0) translateY(-15vh); opacity: 1; }
+    100% { transform: scale(10) translateY(-15vh); opacity: 0; }
+}
+
+.simulation-parameters-box {
+    position: relative;
+    background: rgba(10, 25, 47, 0.85);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0, 191, 255, 0.3);
+    border-radius: 15px;
+    box-shadow: 0 0 25px rgba(0, 191, 255, 0.3);
+    padding: 30px;
+    z-index: 10;
+    width: 450px;
+    margin-top: 35vh;
+    transition: opacity 0.5s, transform 0.5s;
+}
+.simulation-parameters-box.hide {
+    opacity: 0;
+    transform: translateY(50px);
+}
+
+h1 { color: #fff; text-align: center; margin-top: 0; letter-spacing: 2px; }
+.form-group, .form-group-inline { margin-bottom: 20px; }
+label { display: block; font-size: 0.8rem; color: #a0c4ff; margin-bottom: 8px; text-transform: uppercase; }
+input[type="text"] { width: 100%; padding: 10px; background: rgba(0, 0, 0, 0.4); border: 1px solid #005f7a; border-radius: 5px; color: #fff; box-sizing: border-box; }
+
+.slider { -webkit-appearance: none; appearance: none; width: 100%; height: 8px; background: rgba(0, 0, 0, 0.5); outline: none; border-radius: 4px; border: 1px solid #005f7a; }
+.slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 20px; height: 20px; background: #00bfff; cursor: pointer; border-radius: 50%; box-shadow: 0 0 10px #00bfff; }
+.form-group span { display: block; text-align: right; font-size: 0.9rem; margin-top: 5px; }
+
+
+
+button { width: 100%; padding: 15px; border: none; border-radius: 5px; background-color: #0077b6; color: #fff; font-size: 1rem; cursor: pointer; transition: background-color 0.3s, box-shadow 0.3s; text-transform: uppercase; letter-spacing: 1px; margin-top: 10px; }
+button:hover { background-color: #00bfff; box-shadow: 0 0 15px #00bfff; }
+
+#results-screen { z-index: 20; }
+#map { width: 100%; height: 100%; z-index: 1; }
+.severity-alert-box { position: absolute; bottom: 30px; left: 30px; width: 380px; background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(10px); border: 1px solid rgba(0, 191, 255, 0.3); border-radius: 15px; box-shadow: 0 0 25px rgba(0, 191, 255, 0.3); padding: 30px; z-index: 10; }
+.severity-alert-box h2 { font-size: 1.2rem; margin-bottom: 5px; }
+.severity-alert-box #alert-level { font-size: 1.5rem; font-weight: bold; color: #ff4d4d; text-align: center; margin-bottom: 20px; margin-top: 0; }
+.info-item { margin-bottom: 15px; }
+.info-item strong, .actions-title { display: block; font-size: 0.7rem; color: #a0c4ff; margin-bottom: 5px; text-transform: uppercase; letter-spacing: 1px; }
+.actions-title { margin-top: 20px; }
+#recommended-actions { margin-top: 5px; line-height: 1.5; }
+.confidence { margin-top: 20px; }
