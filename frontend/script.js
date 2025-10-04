@@ -60,7 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         try {
-            const response = await fetch('http://127.0.0.1:5000/api/simulate', {
+            const response = await fetch('https://asteroid-impact-simulator.onrender.com/api/simulate', {
                 method: 'POST', headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(simulationData)
             });
